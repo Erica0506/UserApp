@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-//import { HttpClient } from "@angular/common/http";
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../shared/services/login-service/login.service';
 import { LoginStatusService } from '../../shared/services/login-service/login-status.service';
 import { first } from 'rxjs/operators'
@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
   //users: User[] = []
 
   constructor(@Inject(LoginService) private myloginservice: LoginService,
-    @Inject(LoginStatusService) public LoginStatusService: LoginStatusService) { }
+    @Inject(LoginStatusService) public LoginStatusService: LoginStatusService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   CheckLogin(txt1: any) {
     this.myloginservice.getUsers(this.uid, this.password)
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit {
         if (!response.error){
           this.msg = "Success Login"
           this.LoginStatusService.isLoggedIn = true;
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
+          this.router.navigateByUrl(returnUrl);
           //this.myobserver.next(res)
         } else {
           this.msg = "Invalid Login"

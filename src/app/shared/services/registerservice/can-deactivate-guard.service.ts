@@ -8,6 +8,7 @@ import { CanComponentDeactivate } from '../../interface/can-component-deactivate
 export class CanDeactivateGuardService implements CanDeactivate<CanComponentDeactivate>{
 
   canDeactivate(component: CanComponentDeactivate){
+    
     if ( component.canNavigate ==true ){
       return true;
     }else {

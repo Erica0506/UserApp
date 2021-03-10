@@ -17,19 +17,16 @@
 <table border="1">
     <tr>
         <th>UID</th>
-        <!-- <th>Email</th> -->
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Phone</th>
-        <th>password</th>
-        <!-- <th>Gender</th>
-        <th>DateOfBirth</th> -->
         <th></th>
     </tr>
     <tr *ngFor="let user of users; let i = index">
         <td>{{user["uid"]}}</td>
+        <td>{{user["firstname"]}}</td>
+        <td>{{user["lastname"]}}</td>
         <td>{{user["phone"]}}</td>
-        <td>{{user["password"]}}</td>
-        <!-- <td>{{user.gender}}</td>
-        <td>{{user.dob}}</td> -->
         <td><input type="button" value="Delete" (click)="onDeleteClick(i)"></td>
     </tr>
     <!-- <tr>

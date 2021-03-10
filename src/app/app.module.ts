@@ -17,7 +17,7 @@ import { CanDeactivateGuardService } from './shared/services/registerservice/can
 import { UsersService } from './shared/services/user/users.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor.service';
-import { LayoutComponent } from './acount/layout/layout.component';
+//import { LayoutComponent } from './acount/layout/layout.component';
 
 var myroutes: Routes = [
   { path: "", component: LoginComponent},
@@ -33,12 +33,13 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    LayoutComponent
+    //LayoutComponent
    
   ],
   imports: [
     BrowserModule,
-    //AppRoutingModule,
+    //AppRoutingModule, 
+    RouterModule, 
     myroutes2,
     FormsModule,
     ReactiveFormsModule,

@@ -13,18 +13,6 @@ export class RegisterService {
 
   register(user: User): Observable<any> {
     console.log(user);
-    return this.http.post("https://alakart.cloud/training/user/regist?info="+user+"", user);
+    return this.http.post(`https://alakart.cloud/training/user/regist?info={"uid":"${user.email}","firstname":"${user.firstname}","lastname":"${user.lastname}","email":"${user.email}","password":"${user.password}","phone":"${user.phone}","gender":"${user.gender}","dob":"${user.dob}"}`,{});
   }
 }
-
-// registerUser(user : User){
-//   const body: User = {
-//     UserName: user.UserName,
-//     Password: user.Password,
-//     Email: user.Email,
-//     FirstName: user.FirstName,
-//     LastName: user.LastName
-//   }
-//   return this.http.post(this.rootUrl + '/api/User/Register', body);
-// }
-//`${environment.apiUrl}/users/register`
