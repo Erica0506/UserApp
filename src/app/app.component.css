@@ -1,0 +1,23 @@
+body{
+    font-family:fantasy;
+    margin: 0px;
+    padding: 0px;
+}
+nav{
+    position: relative;
+    margin-top: 0px;
+    width: 100%;
+    height: 100px;
+    background-color:rgb(135, 231, 197)
+}
+
+h3{
+    position: relative;
+    padding: 15px 10px;
+}
+
+a{
+    position: relative;
+    padding: 10px;
+}
+

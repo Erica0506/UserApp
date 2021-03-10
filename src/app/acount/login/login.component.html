@@ -1,0 +1,31 @@
+<table>
+    <tr>
+        <td>
+            <div *ngIf="!LoginStatusService.isLoggedIn">
+                <form>
+                    <h5>Login Page</h5>
+                    <label for="">UserID:</label>
+                    <input type="text" [(ngModel)]="uid" name="uid" #t1><br>
+                    <label for="">Password:</label>
+                    <input type="password"[(ngModel)]="password" name="password"><br>
+                    <button (click)="CheckLogin(t1)">login</button>
+                    <div>{{msg}}</div>
+                </form>
+            </div>
+            {{uid}}
+            {{password}}
+            <div *ngIf="LoginStatusService.isLoggedIn">
+                <form>
+                    <input type="submit" value="Logout" (click)="Logout()"><br>
+                </form>
+            
+            </div>
+        </td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+</table>
+
+
