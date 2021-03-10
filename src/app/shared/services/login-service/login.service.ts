@@ -19,5 +19,6 @@ export class LoginService {
   getUsers(uid: any, password: any): Observable<User[]>{
     return this.http.get<User[]>("https://alakart.cloud/training/user/logon?usr="+uid+"&password="+password+"", {responseType: "json"})
   }
-
+  // can also use link format below
+  // `https://alakart.cloud/training/user/logon?usr=${uid}&password=${password}`, 
 }

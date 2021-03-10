@@ -17,13 +17,6 @@
                 <span class="error" *ngIf="myform.controls.lastname.touched && myform.controls.lastname.invalid && (myform.controls.lastname.errors &&myform.controls.lastname.errors.minlength)">Min :3 Characters</span>
                 <span class="error" *ngIf="myform.controls.lastname.touched && myform.controls.lastname.invalid && (myform.controls.lastname.errors &&myform.controls.lastname.errors.pattern)">Alphabets only</span><br>
             
-                <div>Username:</div>
-                <input type="text" class="wide-box" formControlName="username"><br>
-
-                <span class="error" *ngIf="myform.controls.username.touched && myform.controls.username.invalid && (myform.controls.username.errors &&myform.controls.username.errors.required)">Username can not be blank</span>
-                <span class="error" *ngIf="myform.controls.username.touched && myform.controls.username.invalid && (myform.controls.username.errors &&myform.controls.username.errors.minlength)">Min :3 Characters</span>
-                <span class="error" *ngIf="myform.controls.username.touched && myform.controls.username.invalid && (myform.controls.username.errors &&myform.controls.username.errors.pattern)">Alphabets only</span><br>
-            
                 <div>Email:</div>
                 <input type="email" class="wide-box" formControlName="email"><br>
 
@@ -55,11 +48,11 @@
                 <input type="date" class="wide-box" formControlName="dob"><br>
                 <span class="error" *ngIf="myform.controls.gender.touched && myform.controls.gender.invalid && (myform.controls.gender.errors &&myform.controls.gender.errors.required)">Please select a birthdate</span><br>
 
-                <input type="submit" value="Sign up" (click)="CheckInfo()">
+                <input type="submit" value="Sign up" (click)="PostData()">
 
                 <div>{{msg}}</div>
                 <div>{{msg2}}</div>
-
+                {{firstname}}
             </form>
         </td>
     </tr>
