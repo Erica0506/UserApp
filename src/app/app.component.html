@@ -1,14 +1,11 @@
 <nav>
   <h3>User Management</h3>
   <a routerLink="home">Home</a>&nbsp;
+  <a routerLink="users">Users</a>&nbsp;
   <a *ngIf="!LoginStatusService.isLoggedIn" routerLink="login">Login</a>&nbsp;
   <input *ngIf="LoginStatusService.isLoggedIn" type="button" value="Logout" (click)="Logout()">&nbsp;
   <a routerLink="register">Register</a>&nbsp;
-  <!-- <a routerLink="account">Account</a>&nbsp; -->
-  
+  <!-- <a routerLink="account">Account</a>&nbsp; --> 
 </nav>
-
-
-
 
 <router-outlet></router-outlet>

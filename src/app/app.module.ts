@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule} from "@angular/common/http";
+import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 //import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -17,12 +20,19 @@ import { CanDeactivateGuardService } from './shared/services/registerservice/can
 import { UsersService } from './shared/services/user/users.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor.service';
+import { UserListComponent } from './user-list/user-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { UserslistComponent } from './userslist/userslist.component';
 //import { LayoutComponent } from './acount/layout/layout.component';
 
 var myroutes: Routes = [
   { path: "", component: LoginComponent},
   { path: "login", component: LoginComponent},
   { path: "home", component: HomeComponent, canActivate: [LoginAuthService]},
+  { path: "users", component: UserslistComponent , canActivate: [LoginAuthService]},
   { path: "register", component: RegisterComponent, canDeactivate: [CanDeactivateGuardService]},
 ]
 var myroutes2 = RouterModule.forRoot(myroutes)
@@ -33,6 +43,8 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    UserListComponent,
+    UserslistComponent,
     //LayoutComponent
    
   ],
@@ -43,7 +55,14 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     myroutes2,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule 
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
   providers: [
     LoginService, 

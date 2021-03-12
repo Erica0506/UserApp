@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { Observable, Observer} from 'rxjs'
-import { User} from '../../classes/user/user';
+import { BehaviorSubject, Observable, Observer } from 'rxjs'
+import { User } from '../../classes/user/user';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -9,15 +10,26 @@ import { User} from '../../classes/user/user';
 })
 export class LoginService {
 
-  // users: User[] = [
-  //   new User("Holly", "Zhou", "holly123", "holly@gmail.com", "h123", 1234567890, "f", "08/21/2020"),
-  //   new User("Molly", "Zhou", "molly123", "molly@gmail.com", "m123", 1234567890, "f", "08/21/2020"),
-  // ];
+  private userSubject!: BehaviorSubject<any>;
+  public user!: Observable<User>;
 
-  constructor(@Inject(HttpClient) private http:HttpClient) { }
+  constructor(@Inject(HttpClient) private http: HttpClient) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
+    this.user = this.userSubject.asObservable();
+  }
+  public get userValue(): User {
+    return this.userSubject.value;
+  }
 
-  getUsers(uid: any, password: any): Observable<User[]>{
-    return this.http.get<User[]>("https://alakart.cloud/training/user/logon?usr="+uid+"&password="+password+"", {responseType: "json"})
+  getUsers(uid: any, password: any): Observable<User[]> {
+    return this.http.get<User[]>("https://alakart.cloud/training/user/logon?usr=" + uid + "&password=" + password + "", { responseType: "json" })
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        return user;
+      }));
+
   }
   // can also use link format below
   // `https://alakart.cloud/training/user/logon?usr=${uid}&password=${password}`, 

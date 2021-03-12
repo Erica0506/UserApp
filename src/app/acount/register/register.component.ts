@@ -1,12 +1,9 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Router, ActivatedRoute, Event, NavigationStart, NavigationEnd, NavigationError, CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, Event, NavigationStart} from '@angular/router';
 import { User } from 'src/app/shared/classes/user/user';
 import { RegisterService } from 'src/app/shared/services/registerservice/register.service';
-import { CanComponentDeactivate } from '../../shared/interface/can-component-deactivate';
-import { CanDeactivateGuardService } from '../../shared/services/registerservice/can-deactivate-guard.service'
 
 @Component({
   selector: 'app-register',
@@ -59,16 +56,13 @@ export class RegisterComponent {
       // if (event instanceof NavigationEnd) {
       //   // Hide loading indicator
       // }
-
       // if (event instanceof NavigationError) {
       //   // Hide loading indicator
-
       //   // Present error to user
       //   console.log(event.error);
       // }
     });
   }
-
   //@HostListener('window:beforeunload')
 
   PostData() {

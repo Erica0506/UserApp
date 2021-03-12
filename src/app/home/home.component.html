@@ -1,45 +1,6 @@
-
- <!-- <input type="button" value="Get Data" (click)="onGetDataClick()"> -->
- <input type="text" placeholder="Search" [(ngModel)]="str">
- <input type="button" value="Search" (click)="onSearchClick()"><br>
- Sort:
- <select [(ngModel)]="sortcolumn">
-     <option>username</option>
-     <option>email</option>
-     <option>phone</option>
- </select>
- <select [(ngModel)]="order">
-     <option value="1">Ascending Order</option>
-     <option value="-1">Descending Order</option>
- </select>
- <input type="button" value="Sort" (click)="onSortClick()">
-
-<table border="1">
-    <tr>
-        <th>UID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Phone</th>
-        <th></th>
-    </tr>
-    <tr *ngFor="let user of users; let i = index">
-        <td>{{user["uid"]}}</td>
-        <td>{{user["firstname"]}}</td>
-        <td>{{user["lastname"]}}</td>
-        <td>{{user["phone"]}}</td>
-        <td><input type="button" value="Delete" (click)="onDeleteClick(i)"></td>
-    </tr>
-    <!-- <tr>
-        <td><input type="text" [(ngModel)]="newemployee.empid" placeholder="Emp ID"></td>
-        <td><input type="text" [(ngModel)]="newemployee.empname" placeholder="Emp Name"></td>
-        <td><input type="text" [(ngModel)]="newemployee.salary" placeholder="Salary"></td>
-        <td><input type="button" value="Insert" (click)="onInsertClick()"></td>
-    </tr> -->
-</table>
-
-
-<!-- created: "2021-03-09 16:54:30"
-password: "haha"
-phone: "123456"
-uid: "haha"
-_id: "6047a847fbd0ae350c2a9830" -->
+<p>You're logged in!!</p>
+<p><a routerLink="/users">Manage Users</a></p>
+  
+  
+  
+  

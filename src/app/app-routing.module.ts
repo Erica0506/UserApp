@@ -7,11 +7,11 @@ import { LoginAuthService } from './shared/services/login-service/login-auth.ser
 const accountModule = () => import('./acount/account.module').then(x => x.AccountModule);
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'account', loadChildren: accountModule },
+  // { path: '', component: HomeComponent },
+  // { path: 'account', loadChildren: accountModule },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  // // otherwise redirect to home
+  // { path: '**', redirectTo: '' }
 ];
 
 //, canActivate: [LoginAuthService]

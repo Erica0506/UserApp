@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   //users: User[] = []
 
-  constructor(@Inject(LoginService) private myloginservice: LoginService,
+  constructor(
+    @Inject(LoginService) private myloginservice: LoginService,
     @Inject(LoginStatusService) public LoginStatusService: LoginStatusService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -29,7 +30,6 @@ export class LoginComponent implements OnInit {
     .subscribe(
       (response: any) => { 
         console.log(response);
-
         if (!response.error){
           this.msg = "Success Login"
           this.LoginStatusService.isLoggedIn = true;
