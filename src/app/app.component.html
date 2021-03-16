@@ -1,5 +1,8 @@
 <nav>
-  <h3>User Management</h3>
+  <h3>
+    <img src="../assets/logo.png" alt="" width="30px" height="20px">
+    User Management
+  </h3>
   <a routerLink="home">Home</a>&nbsp;
   <a routerLink="users">Users</a>&nbsp;
   <a *ngIf="!LoginStatusService.isLoggedIn" routerLink="login">Login</a>&nbsp;

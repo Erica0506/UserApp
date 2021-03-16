@@ -1,9 +1,12 @@
 <table>
     <tr>
         <td>
-            <div *ngIf="!LoginStatusService.isLoggedIn">
+            <div class="bg-image">
+            </div>
+
+            <div class="content" *ngIf="!LoginStatusService.isLoggedIn">
                 <form>
-                    <h5>Login Page</h5>
+                    <h4>Login Page</h4>
                     <label for="">UserID:</label>
                     <input type="text" [(ngModel)]="uid" name="uid" #t1><br>
                     <label for="">Password:</label>
@@ -12,20 +15,16 @@
                     <div>{{msg}}</div>
                 </form>
             </div>
-            {{uid}}
-            {{password}}
-            <div *ngIf="LoginStatusService.isLoggedIn">
+            
+            <div class="content" *ngIf="LoginStatusService.isLoggedIn">
                 <form>
                     <input type="submit" value="Logout" (click)="Logout()"><br>
                 </form>
-            
             </div>
         </td>
     </tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
+   
+    
 </table>
 
 

@@ -17,5 +17,4 @@ export class HomeComponent {
   //   // this.router.navigateByUrl(returnUrl);
   // }
 
-
 }

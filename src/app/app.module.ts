@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule} from "@angular/common/http";
-import { MatSliderModule } from '@angular/material/slider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+
 
 //import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -22,10 +20,17 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './interceptor.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { UserslistComponent } from './userslist/userslist.component';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 //import { LayoutComponent } from './acount/layout/layout.component';
 
 var myroutes: Routes = [
@@ -45,6 +50,7 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     RegisterComponent,
     UserListComponent,
     UserslistComponent,
+    DialogBoxComponent,
     //LayoutComponent
    
   ],
@@ -62,7 +68,9 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule 
+    MatInputModule ,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     LoginService, 

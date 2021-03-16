@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
     localStorage.removeItem('user');
   }
 
+
   ngOnInit(){
     let user= localStorage.getItem("user")
     if(user){

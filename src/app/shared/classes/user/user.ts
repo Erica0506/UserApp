@@ -7,6 +7,7 @@ export class User {
   gender:string = "";
   dob:string = "";
   uid: string = "";
+  status: string = "";
  
 
   constructor( a:string, b:string, c: string, d:string, e:number, f:string, g:string, h:string) {

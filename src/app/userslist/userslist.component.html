@@ -4,7 +4,10 @@
 </mat-form-field>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+
+  <button mat-button (click)="openDialog('Add',{})" mat-flat-button color="primary">Add User</button>
+
+  <table mat-table [dataSource]="dataSource" #mytable matSort>
 
     <!-- UId Column -->
     <ng-container matColumnDef="uid">
@@ -28,6 +31,15 @@
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
         <td mat-cell *matCellDef="let row">{{row.phone}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let row" class="action-link">
+          <button mat-button (click)="openDialog('Update',row)">Edit</button> 
+          <button mat-button (click)="openDialog('Delete',row)">Delete</button> 
+          <button mat-button (click)="activeUser(row.uid)">active</button> 
+        </td>
       </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

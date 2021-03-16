@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../classes/user/user';
+import { filter, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,9 +15,9 @@ export class UsersService {
   reject: any;
 
   getUsers(){
-    this.http.get<User> ("https://alakart.cloud/training/user/list", {
-      responseType: "json"
-    }).subscribe(this.onAjaxSuccess, this.onAjaxError);
+    this.http.get<User> ("https://alakart.cloud/training/user/list", {responseType: "json"})
+      
+    .subscribe(this.onAjaxSuccess, this.onAjaxError);
     return new Promise(this.promiseCallback);
   }
 
@@ -31,4 +32,6 @@ export class UsersService {
   onAjaxError = () =>{
     this.reject("Failed");
   }
+
+
 }

@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     .pipe(first())
     .subscribe(
       (response: any) => { 
-        console.log(response);
         if (!response.error){
           this.msg = "Success Login"
           this.LoginStatusService.isLoggedIn = true;

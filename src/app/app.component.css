@@ -8,12 +8,13 @@ nav{
     margin-top: 0px;
     width: 100%;
     height: 100px;
-    background-color:rgb(135, 231, 197)
+    background-color:rgb(157, 207, 206);
 }
 
 h3{
     position: relative;
     padding: 15px 10px;
+    font-size: 20px;
 }
 
 a{

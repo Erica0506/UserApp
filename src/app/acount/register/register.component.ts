@@ -1,7 +1,7 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Router, ActivatedRoute, Event, NavigationStart} from '@angular/router';
+import { Router, ActivatedRoute, Event, NavigationStart } from '@angular/router';
 import { User } from 'src/app/shared/classes/user/user';
 import { RegisterService } from 'src/app/shared/services/registerservice/register.service';
 
@@ -21,7 +21,6 @@ export class RegisterComponent {
   dob: string = "";
   msg: string = "";
 
-  msg2: string = "";
   myform!: FormGroup;
 
   canNavigate: boolean = true;
@@ -29,7 +28,7 @@ export class RegisterComponent {
   constructor(private rs: RegisterService,
     private route: ActivatedRoute,
     private router: Router,
-    ) {
+  ) {
     this.myform = new FormGroup({
       firstname: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
       lastname: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
@@ -42,14 +41,14 @@ export class RegisterComponent {
 
 
     this.router.events.subscribe((event: Event) => {
-      
+
       if (event instanceof NavigationStart) {
-        
+
         if (!this.myform.valid && this.myform.untouched) {
           this.canNavigate = true;
-        } else if(this.myform.valid){
+        } else if (this.myform.valid) {
           this.canNavigate = true;
-        }else {
+        } else {
           this.canNavigate = false;
         }
       }
@@ -67,18 +66,21 @@ export class RegisterComponent {
 
   PostData() {
     if (this.myform.valid) {
-      this.msg = "You have successful registered!"
-      console.log(this.myform.value);
 
-      this.myform.value["uid"] = this.myform.value.email
-      console.log(this.myform.value);
+      let newUser = this.myform.value;
+      newUser["status"] = "active";
+      console.log(newUser);
 
-      this.rs.register(this.myform.value).subscribe(
+      this.rs.register(newUser).subscribe(
         (res: any) => {
           console.log(res);
-
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'login';
-          this.router.navigateByUrl(returnUrl);
+          if (res.status=="error") {
+            alert(res.message)
+          } else { 
+            this.msg = "You have successful registered!"
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'login';
+            this.router.navigateByUrl(returnUrl);
+          }
         },
         () => { console.log('error in post'); }
       )
