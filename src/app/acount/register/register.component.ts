@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { FormControl, FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Event, NavigationStart } from '@angular/router';
-import { User } from 'src/app/shared/classes/user/user';
 import { RegisterService } from 'src/app/shared/services/registerservice/register.service';
 
 @Component({
@@ -12,38 +10,29 @@ import { RegisterService } from 'src/app/shared/services/registerservice/registe
 })
 export class RegisterComponent {
 
-  firstname: string = "";
-  lastname: string = "";
-  email: string = "";
-  password: string = "";
-  phone?: number;
-  gender: string = "";
-  dob: string = "";
+  hide = true;
+
+  // firstname: string = "";
+  // lastname: string = "";
+  // email: string = "";
+  // password: string = "";
+  // phone?: number;
+  // gender: string = "";
+  // dob: string = "";
   msg: string = "";
 
   myform!: FormGroup;
 
   canNavigate: boolean = true;
 
-  constructor(private rs: RegisterService,
+  constructor(
+    private rs: RegisterService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {
-    this.myform = new FormGroup({
-      firstname: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
-      lastname: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
-      email: new FormControl("", [Validators.required, Validators.pattern("^[a-z0-9]+(\.[_a-z09]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$")]),
-      password: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z0-9]+$")]),
-      phone: new FormControl("", [Validators.required, Validators.pattern("^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]),
-      gender: new FormControl("", [Validators.required]),
-      dob: new FormControl("", [Validators.required])
-    });
-
+    private formBuilder: FormBuilder){
 
     this.router.events.subscribe((event: Event) => {
-
       if (event instanceof NavigationStart) {
-
         if (!this.myform.valid && this.myform.untouched) {
           this.canNavigate = true;
         } else if (this.myform.valid) {
@@ -62,7 +51,36 @@ export class RegisterComponent {
       // }
     });
   }
-  //@HostListener('window:beforeunload')
+
+  ngOnInit(): void {
+    this.reactiveForm()
+  }
+
+  /* Reactive form */
+  reactiveForm() {
+    this.myform = this.formBuilder.group({
+      firstname: new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
+      lastname: new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*$")]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, Validators.minLength(6), Validators.pattern("^[a-zA-Z0-9]+$")]),
+      phone: new FormControl("", [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      gender: new FormControl("Other", [Validators.required]),
+      dob: new FormControl("", [Validators.required])
+    })
+  }
+
+   /* Date */
+   date(e:any) {
+    var convertDate = new Date(e.target.value).toISOString().substring(0, 10);
+    this.myform.get('dob')!.setValue(convertDate, {
+      onlyself: true
+    })
+  }
+
+   /* Handle form errors */
+  public errorHandling = (control: string, error: string) => {
+    return this.myform.controls[control].hasError(error);
+  }
 
   PostData() {
     if (this.myform.valid) {
@@ -88,9 +106,6 @@ export class RegisterComponent {
       //this.canNavigate=false;
       this.msg = "Invalid";
     }
-  }
-
-  ngOnInit(): void {
   }
 
 }

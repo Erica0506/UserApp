@@ -1,38 +1,75 @@
-<h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
+<h1 mat-dialog-title>Row Action : <strong>{{action}}</strong></h1>
 <div mat-dialog-content>
 
   <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-    <input placeholder="{{action}} Firstame" matInput [(ngModel)]="local_data.firstname"> 
+    <input placeholder="{{action}} Firstame" matInput [(ngModel)]="local_data.firstname" required="required"
+      minlength="2" maxlength="20" pattern="^[a-zA-Z ]*$" #control1="ngModel">
+    <mat-error *ngIf="control1.hasError('required')"> You must provide a <strong>firstname</strong>. </mat-error>
+    <mat-error *ngIf="control1.hasError('minlength')"> Firstname must has minmum 2 Characters. </mat-error>
+    <mat-error *ngIf="control1.hasError('maxlength')"> Firstname has maxmum 20 Characters. </mat-error>
+    <mat-error *ngIf="control1.hasError('pattern')"> Alphabets only. </mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Lastame" matInput [(ngModel)]="local_data.lastname"> 
+    <input placeholder="{{action}} Lastame" matInput [(ngModel)]="local_data.lastname" required="required" minlength="2"
+      maxlength="20" pattern="^[a-zA-Z ]*$" #control2="ngModel">
+    <mat-error *ngIf="control2.hasError('required')"> You must provide a <strong>firstname</strong>. </mat-error>
+    <mat-error *ngIf="control2.hasError('minlength')"> Firstname must has minmum 2 Characters. </mat-error>
+    <mat-error *ngIf="control2.hasError('maxlength')"> Firstname has maxmum 20 Characters. </mat-error>
+    <mat-error *ngIf="control2.hasError('pattern')"> Alphabets only. </mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Email" matInput [(ngModel)]="local_data.email">
+    <input type="email" placeholder="{{action}} Email" matInput [(ngModel)]="local_data.email" required="required"
+      pattern="^[a-z0-9]+(\.[_a-z09]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" #control3="ngModel">
+    <mat-error *ngIf="control3.hasError('required')"> You must provide a <strong>Email</strong>. </mat-error>
+    <mat-error *ngIf="control3.hasError('pattern')"> You must provide a valid email. </mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Password" matInput [(ngModel)]="local_data.password">   
+    <input placeholder="{{action}} Password" matInput [(ngModel)]="local_data.password" required="required"
+      minlength="6" pattern="^[a-zA-Z0-9]+$" #control4="ngModel">
+    <!-- <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button> -->
+    <mat-error *ngIf="control4.hasError('required')"> You must set a <strong>Password</strong>. </mat-error>
+    <mat-error *ngIf="control4.hasError('minlength')"> Passowrd must has minmum 6 Characters. </mat-error>
+    <mat-error *ngIf="control4.hasError('pattern')"> Alphabets and number only. </mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Phone" matInput [(ngModel)]="local_data.phone">   
+    <input placeholder="{{action}} Phone" matInput [(ngModel)]="local_data.phone" required="required"
+      pattern="^((\\+91-?)|0)?[0-9]{10}$" #control5="ngModel">
+    <mat-icon matSuffix>phone</mat-icon>
+    <mat-error *ngIf="control5.hasError('required')"> You must provide a <strong>Phone number</strong>. </mat-error>
+    <mat-error *ngIf="control5.hasError('pattern')"> Please, Enter 10 digit Mobile Number. </mat-error>
   </mat-form-field>
 
   <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Gender" matInput [(ngModel)]="local_data.gender">   
+    <input matInput readonly [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="local_data.dob"
+      (dateChange)="date($event)" required="required" #control6="ngModel">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="control6.hasError('required')"> You must select a <strong>birthdate</strong> </mat-error>
   </mat-form-field>
 
-  <mat-form-field *ngIf="action != 'Delete'; ">
-    <input placeholder="{{action}} Date of Birth" matInput [(ngModel)]="local_data.dob">   
-  </mat-form-field>
+  <div class="misc-bottom-padding" *ngIf="action != 'Delete'; ">
+    <mat-label>Gender:</mat-label>
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="local_data.gender" required="required"
+      #control7="ngModel">
+      <mat-radio-button value="male">Male</mat-radio-button>&nbsp;
+      <mat-radio-button value="female">Female</mat-radio-button>&nbsp;
+      <mat-radio-button value="other">Other</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="control7.hasError('required')"> You must choose one! </mat-error>
+  </div>&nbsp;
 
   <ng-template #elseTemplate>
     Sure to delete <b>{{local_data.uid}}</b>?
   </ng-template>
+
 </div>
+
 <div mat-dialog-actions>
   <button mat-button (click)="doAction()">{{action}}</button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>

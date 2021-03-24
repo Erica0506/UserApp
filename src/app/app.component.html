@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
   <h3>
     <img src="../assets/logo.png" alt="" width="30px" height="20px">
     User Management
@@ -8,7 +8,30 @@
   <a *ngIf="!LoginStatusService.isLoggedIn" routerLink="login">Login</a>&nbsp;
   <input *ngIf="LoginStatusService.isLoggedIn" type="button" value="Logout" (click)="Logout()">&nbsp;
   <a routerLink="register">Register</a>&nbsp;
-  <!-- <a routerLink="account">Account</a>&nbsp; --> 
-</nav>
+</nav> -->
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>
+      <img src="../assets/logo.png" alt="" width="30px" height="20px">
+      User Management</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <button mat-raised-button routerLink="home">Home</button>&nbsp;
+    
+    <button mat-raised-button routerLink="users">Users</button>&nbsp;
+
+    <span class="example-spacer"></span>
+
+    <button mat-raised-button *ngIf="!LoginStatusService.isLoggedIn" routerLink="login">Login</button>&nbsp;
+
+    <button mat-raised-button *ngIf="LoginStatusService.isLoggedIn" routerLink="login" (click)="Logout()">Logout</button>&nbsp;
+   
+    <button mat-raised-button routerLink="register">Register</button>
+ 
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

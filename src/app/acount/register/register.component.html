@@ -1,4 +1,96 @@
-<table>
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <form [formGroup]="myform" (ngSubmit)="PostData()">
+            <!-- first name -->
+            <mat-form-field appearance="fill">
+                <mat-label>FirstName</mat-label>
+                <input type="text" matInput formControlName="firstname" placeholder="Ex. Hossein" />
+                <mat-error *ngIf="errorHandling('firstname', 'required')"> You must provide a <strong>firstname</strong>. </mat-error>
+                <mat-error *ngIf="errorHandling('firstname', 'minlength')"> Firstname must has minmum 2 Characters. </mat-error>
+                <mat-error *ngIf="errorHandling('firstname', 'maxlength')"> Firstname has maxmum 20 Characters. </mat-error>
+                <mat-error *ngIf="errorHandling('firstname', 'pattern')"> Alphabets only. </mat-error>
+            </mat-form-field>
+
+            <!-- last name -->
+            <mat-form-field appearance="fill">
+                <mat-label>LastName</mat-label>
+                <input type="text" matInput formControlName="lastname" placeholder="Ex. Mousavi" />
+                <mat-error *ngIf="errorHandling('lastname', 'required')"> You must provide a <strong>lastname</strong>. </mat-error>
+                <mat-error *ngIf="errorHandling('lastname', 'minlength')"> Lastname must has minmum 2 Characters. </mat-error>
+                <mat-error *ngIf="errorHandling('lastname', 'maxlength')"> Lastname has maxmum 20 Characters. </mat-error>
+                <mat-error *ngIf="errorHandling('lastname', 'pattern')"> Alphabets only. </mat-error>
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email" placeholder="pat@example.com">
+                <mat-error *ngIf="errorHandling('email', 'required')"> You must provide a <strong>email</strong>.</mat-error>
+                <mat-error *ngIf="errorHandling('email', 'email')"> You must provide a valid email Ex. pat@example.com  </mat-error>
+            </mat-form-field>
+
+            <!-- password -->
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="errorHandling('password', 'required')"> You must set a <strong>password</strong>. </mat-error>
+                <mat-error *ngIf="errorHandling('password', 'minlength')"> Passowrd must has minmum 6 Characters. </mat-error>
+                <mat-error *ngIf="errorHandling('password', 'pattern')"> Alphabets and number only. </mat-error>
+            </mat-form-field>
+
+            <!-- phone -->
+            <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input matInput formControlName="phone" placeholder="000-000-0000"/>
+                <mat-icon matSuffix>phone</mat-icon>
+                <!-- <mat-hint>Include area code</mat-hint> -->
+                <mat-error *ngIf="errorHandling('phone', 'required')"> You must provide a <strong>phone number</strong>. </mat-error>
+                <mat-error *ngIf="errorHandling('phone', 'pattern')"> Please, Enter 10 digit Mobile Number. </mat-error>
+            </mat-form-field>
+
+            <!-- Date  -->
+            <mat-form-field appearance="fill">
+                <input matInput readonly [matDatepicker]="picker" placeholder="Date of Birth" formControlName="dob"
+                    (dateChange)="date($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="errorHandling('dob', 'required')"> You must select a <strong>birthdate</strong> </mat-error>
+            </mat-form-field>
+
+            <!-- Gender -->
+            <div class="misc-bottom-padding">
+                <mat-label>Gender:</mat-label>
+                <mat-radio-group aria-label="Select an option" formControlName="gender">
+                    <mat-radio-button value="male">Male</mat-radio-button>&nbsp;
+                    <mat-radio-button value="female">Female</mat-radio-button>&nbsp;
+                    <mat-radio-button value="other">Other</mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="errorHandling('gender', 'required')"> You must choose one! </mat-error>
+            </div>
+
+            <!-- Submit -->
+            <span class="button-wrapper">
+                <button mat-raised-button color="primary">Submit</button>
+            </span>&nbsp;
+
+            <!-- <span class="button-wrapper">
+                <button mat-raised-button color="primary">Cancel</button>
+            </span> -->
+            
+        </form>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+<!-- <table>
+
     <tr>
         <td>
             <form [formGroup]="myform">
@@ -54,5 +146,6 @@
             </form>
         </td>
     </tr>
-</table>
+</table> -->
+
 

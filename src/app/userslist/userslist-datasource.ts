@@ -4,10 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-import {  Inject} from '@angular/core';
-import { User } from '../shared/classes/user/user';
-import { UsersService } from '../shared/services/user/users.service';
-
 // TODO: Replace this with your own data model type
 export interface UserslistItem {
   firstname:string;

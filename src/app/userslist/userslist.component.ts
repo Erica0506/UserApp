@@ -22,7 +22,7 @@ export class UserslistComponent implements OnInit {
   dataSource!: MatTableDataSource<User>;
   users: User[] = [];
 
-  @ViewChild(MatTable,{static:true}) table!: MatTable<any>;
+  @ViewChild(MatTable, { static: true }) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -37,8 +37,8 @@ export class UserslistComponent implements OnInit {
   }
 
   onPromiseSuccess = (response: any) => {
-    for (let i =0; i<response.length; i++){
-      if (response[i].status=="active"){
+    for (let i = 0; i < response.length; i++) {
+      if (response[i].status == "active") {
         this.users.push(response[i]);
       }
     }
@@ -61,64 +61,66 @@ export class UserslistComponent implements OnInit {
     }
   }
 
-  openDialog(action:any,obj:any) {
+  openDialog(action: any, obj: any) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '300px',
-      data:obj
+      width: '350px',
+      data: obj
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.event == 'Add'){
+      if (result.event == 'Add') {
         this.addRowData(result.data);
-      }else if(result.event == 'Update'){
+      } else if (result.event == 'Update') {
         this.updateRowData(result.data);
-      }else if(result.event == 'Delete'){
+      } else if (result.event == 'Delete') {
         this.deleteRowData(result.data);
       }
     });
   }
 
-  addRowData(row_obj: any){
-    row_obj.status="active";
+  addRowData(row_obj: any) {
+    row_obj.status = "active";
     this.register.register(row_obj)
-    .subscribe(
-      (res: any) => {
-        console.log(res);
-        if (res.status=="error") {
-          alert(res.message)
-        } 
-      },
-      () => { console.log('error in post process'); }
-    ) 
-    this.dataSource.data.push({
-      uid:row_obj.email,
-      firstname:row_obj.firstname,
-      lastname:row_obj.lastname,
-      email:row_obj.email,
-      password:row_obj.password,
-      phone:row_obj.phone,
-      gender:row_obj.gender,
-      dob:row_obj.dob,
-      status:'active'
-    });
-    this.table.renderRows();
-    this.dataSource.data = this.dataSource.data.filter((value,key)=>{
-      return value.status = "active";
-    });
-    
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if (res.status == "error") {
+            alert(res.message)
+          } else {
+            this.dataSource.data.push({
+              uid: row_obj.email,
+              firstname: row_obj.firstname,
+              lastname: row_obj.lastname,
+              email: row_obj.email,
+              password: row_obj.password,
+              phone: row_obj.phone,
+              gender: row_obj.gender,
+              dob: row_obj.dob,
+              status: 'active'
+            });
+            this.table.renderRows();
+            this.dataSource.data = this.dataSource.data.filter((value, key) => {
+              return value.status = "active";
+            });
+          }
+        },
+        () => { console.log('error in post process'); }
+      )
+
+
   }
-  updateRowData(row_obj: any){
+  updateRowData(row_obj: any) {
     this.myloginservice.update(row_obj)
-    .pipe(first())
-    .subscribe(
-      (response: any) => { 
-        console.log(response);
-      },
-      (error: any) => { alert(error); }
-    );
-    this.dataSource.data = this.dataSource.data.filter((user,key)=>{
-      if(user.uid == row_obj.uid){
+      .pipe(first())
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        (error: any) => { alert(error); }
+      );
+    this.dataSource.data = this.dataSource.data.filter((user, key) => {
+      if (user.uid == row_obj.uid) {
         user.uid = row_obj.email;
         user.firstname = row_obj.firstname;
         user.lastname = row_obj.lastname;
@@ -132,40 +134,34 @@ export class UserslistComponent implements OnInit {
     });
   }
 
-  deleteRowData(row_obj: any){
+  deleteRowData(row_obj: any) {
     this.myloginservice.delete(row_obj.uid)
-    .pipe(first())
-    .subscribe(
-      (response: any) => { 
-        console.log(response);
-      },
-      (error: any) => { alert(error); }
-    );
-    this.dataSource.data = this.dataSource.data.filter((value,key)=>{
+      .pipe(first())
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        (error: any) => { alert(error); }
+      );
+    this.dataSource.data = this.dataSource.data.filter((value, key) => {
       return value.uid != row_obj.uid;
     });
   }
 
 
   activeUser(uid: string) {
-    if (confirm("Are you sure to active this User?")){
+    if (confirm("Are you sure to active this User?")) {
       this.myloginservice.active(uid)
-      .pipe(first())
-      //.subscribe(() => this.users = this.users.filter(x => x.uid !== uid))
-      .subscribe(
-        (response: any) => { 
-          console.log(response);
-          // this.UsersService.getUsers().then(this.onPromiseSuccess, this.onPromiseError);
-          // for (let i =0; i<this.users.length; i++){
-          //   if (this.users[i].uid==uid){
-          //     this.users.splice(i+1, 1);
-          //   }
-          // }
-        },
-        (error: any) => { alert(error); }
-      );
+        .pipe(first())
+        //.subscribe(() => this.users = this.users.filter(x => x.uid !== uid))
+        .subscribe(
+          (response: any) => {
+            console.log(response);
+          },
+          (error: any) => { alert(error); }
+        );
       this.table.renderRows();
     }
-  } 
+  }
 
 }

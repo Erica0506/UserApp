@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../shared/services/login-service/login.service';
 import { LoginStatusService } from '../../shared/services/login-service/login-status.service';
 import { first } from 'rxjs/operators'
-//import { User } from 'src/app/shared/classes/user/user';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +12,8 @@ import { first } from 'rxjs/operators'
 })
 export class LoginComponent implements OnInit {
 
-  uid: string = "";
-  password: string = "";
   msg: string = "";
-
-  //users: User[] = []
+  hide: boolean = true;
 
   constructor(
     @Inject(LoginService) private myloginservice: LoginService,
@@ -24,12 +21,18 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
+  form: FormGroup = new FormGroup({
+    uid: new FormControl(''),
+    password: new FormControl(''),
+  });
+
   CheckLogin(txt1: any) {
-    this.myloginservice.getUsers(this.uid, this.password)
+    this.myloginservice.checkLogin(this.form.value.uid, this.form.value.password)
     .pipe(first())
     .subscribe(
       (response: any) => { 
-        if (!response.error){
+        if (!response.error&&response['status']==='active'){
+          console.log(response);
           this.msg = "Success Login"
           this.LoginStatusService.isLoggedIn = true;
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
@@ -44,21 +47,10 @@ export class LoginComponent implements OnInit {
 
       (error: any) => { alert(error); }
     )
-
-    // for (var i = 0; i < this.users.length; i++){
-    //   if (this.users(uid) == this.uid && this.users["password"] == this.password){
-    //     this.msg = "Success Login"
-    //     this.LoginStatusService.isLoggedIn = true;
-    //   } else {
-    //     this.msg = "Invalid Login"
-    //     this.LoginStatusService.isLoggedIn = false;
-    //      txt1.focus();
-    //   }
-    // }
   }
 
   Logout() {
-    this.LoginStatusService.isLoggedIn = false;
+    this.myloginservice.logout()
   }
 
   ngOnInit(): void {

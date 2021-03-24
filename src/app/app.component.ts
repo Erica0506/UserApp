@@ -10,11 +10,10 @@ import { LoginStatusService } from './shared/services/login-service/login-status
 export class AppComponent implements OnInit{
 
   title = 'UserApp';
-  constructor(@Inject(LoginStatusService) public LoginStatusService: LoginStatusService,
-              @Inject(Router) private router: Router,
-              @Inject(ActivatedRoute) private route: ActivatedRoute){
-
-              }
+  constructor(
+    @Inject(LoginStatusService) public LoginStatusService: LoginStatusService,
+    @Inject(Router) private router: Router,
+    @Inject(ActivatedRoute) private route: ActivatedRoute){ }
   
   Logout() {
     this.LoginStatusService.isLoggedIn = false;
@@ -22,7 +21,6 @@ export class AppComponent implements OnInit{
     this.router.navigateByUrl(returnUrl);
     localStorage.removeItem('user');
   }
-
 
   ngOnInit(){
     let user= localStorage.getItem("user")
