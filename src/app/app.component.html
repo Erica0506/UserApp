@@ -19,17 +19,17 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row>
-    <button mat-raised-button routerLink="home">Home</button>&nbsp;
+    <button mat-raised-button routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</button>&nbsp;
     
-    <button mat-raised-button routerLink="users">Users</button>&nbsp;
+    <button mat-raised-button routerLink="users" routerLinkActive="active">Users</button>&nbsp;
 
     <span class="example-spacer"></span>
 
-    <button mat-raised-button *ngIf="!LoginStatusService.isLoggedIn" routerLink="login">Login</button>&nbsp;
+    <button mat-raised-button *ngIf="!LoginStatusService.isLoggedIn" routerLink="login" routerLinkActive="active">Login</button>&nbsp;
 
-    <button mat-raised-button *ngIf="LoginStatusService.isLoggedIn" routerLink="login" (click)="Logout()">Logout</button>&nbsp;
+    <button mat-raised-button *ngIf="LoginStatusService.isLoggedIn" routerLink="login" (click)="Logout()" routerLinkActive="active">Logout</button>&nbsp;
    
-    <button mat-raised-button routerLink="register">Register</button>
+    <button mat-raised-button routerLink="register" routerLinkActive="active">Register</button>
  
   </mat-toolbar-row>
 </mat-toolbar>

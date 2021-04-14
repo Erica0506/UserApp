@@ -40,6 +40,7 @@ import { MatCardModule} from "@angular/material/card";
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 var myroutes: Routes = [
   { path: "", component: LoginComponent},
@@ -83,7 +84,8 @@ var myroutes2 = RouterModule.forRoot(myroutes)
     MatCardModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatSidenavModule  
+    MatSidenavModule,
+    NgbModule  
   ],
   providers: [
     LoginService, 
